@@ -10,6 +10,8 @@ db = SQLAlchemy(model_class=Base)
 
 
 class Student(Base):
+    __tablename__ = 'students'
+    
     id: Mapped[int] = mapped_column(primary_key=True)
     first_name: Mapped[str]  = mapped_column(db.String(255))
     last_name: Mapped[str]  = mapped_column(db.String(255))

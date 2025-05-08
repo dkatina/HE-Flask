@@ -3,7 +3,7 @@ import os
 import click
 from flask import Flask
 from flask.cli import with_appcontext
-from models import db
+from app.models import db
 from flask_marshmallow import Marshmallow
 
 ma = Marshmallow()
