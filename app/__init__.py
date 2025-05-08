@@ -3,10 +3,10 @@ import os
 import click
 from flask import Flask
 from flask.cli import with_appcontext
-from flask_sqlalchemy import SQLAlchemy
+from models import db
+from flask_marshmallow import Marshmallow
 
-db = SQLAlchemy()
-
+ma = Marshmallow()
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -29,6 +29,7 @@ def create_app(test_config=None):
         app.config.update(test_config)
 
     db.init_app(app)
+    ma.init_app(app)
     app.cli.add_command(init_db_command)
 
     from app.views import students_blueprint

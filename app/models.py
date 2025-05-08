@@ -1,22 +1,21 @@
-from app import db
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from datetime import date
+
+class Base(DeclarativeBase):
+    pass
+
+db = SQLAlchemy(model_class=Base)
 
 
-class Student(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String)
-    last_name = db.Column(db.String)
-    date_of_birth = db.Column(db.Date)
-    grade = db.Column(db.Integer)
-    phone = db.Column(db.String)
-    email = db.Column(db.String)
 
-    def to_dict(self):
-        return dict(
-            id=self.id,
-            first_name=self.first_name,
-            last_name=self.last_name,
-            date_of_birth=self.date_of_birth.isoformat(),
-            grade=self.grade,
-            phone=self.phone,
-            email=self.email
-        )
+class Student(Base):
+    id: Mapped[int] = mapped_column(primary_key=True)
+    first_name: Mapped[str]  = mapped_column(db.String(255))
+    last_name: Mapped[str]  = mapped_column(db.String(255))
+    date_of_birth: Mapped[date]  = mapped_column(db.Date)
+    grade: Mapped[int]  = mapped_column(db.Integer)
+    phone: Mapped[str]  = mapped_column(db.String(255))
+    email: Mapped[str]  = mapped_column(db.String(255))
+
+  
