@@ -17,6 +17,19 @@ def test_create_student(client, app):
     assert response.status_code == 201
     assert json_of_response(response) == dict(id=1, **student_params)
 
+def test_invalid_create_student(client, app):
+    student_params = dict(
+        first_name="Scarlett",
+        last_name="Evans",
+        date_of_birth="2010-05-01",
+        grade=8,
+        phone="+11111111111"
+    )
+
+    response = client.post("/students", json=student_params)
+    assert response.status_code == 400
+    assert "email" in json_of_response(response)
+
 
 def test_all_students_returns_all_students_json_ordered_by_id(client, app):
     students_params = [
